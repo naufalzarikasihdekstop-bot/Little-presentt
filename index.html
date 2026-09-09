@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>From Nopal ❤️ For Rubi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Noto+Serif+JP:wght@300;400;600&display=swap" />
+    <style>
+        /* ============================================================
+           ALL CSS (full styles)
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow: hidden;
+            background: #0b090a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font: inherit;
+            color: inherit;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+
+        :root {
+            --color-bg: #0b090a;
+            --color-text: #f2ece4;
+            --color-text-muted: #a8998e;
+            --color-text-soft: #d4c9c0;
+            --color-gold: #c9a87c;
+            --color-gold-light: #e8d5b8;
+            --color-rose: #d4a0a0;
+            --font-heading: 'Cormorant Garamond', 'Georgia', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-japanese: 'Noto Serif JP', 'Hiragino Mincho Pro', serif;
+            --radius-full: 9999px;
+            --transition-smooth: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            --z-loader: 1000;
+            --z-scene: 10;
+            --z-scene-content: 20;
+            --z-nav: 30;
+        }
+
+        /* ----- buttons ----- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 2.25rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-radius: var(--radius-full);
+            transition: all var(--transition-smooth);
+            min-height: 52px;
+            user-select: none;
+        }
+        .btn--primary {
+            background: var(--color-gold);
+            color: #0b090a;
+            box-shadow: 0 4px 24px rgba(201, 168, 124, 0.3);
+        }
+        .btn--primary:hover {
+            background: var(--color-gold-light);
+            transform: translateY(-2px);
+        }
+        .btn--secondary {
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid rgba(242, 236, 228, 0.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .btn--secondary:hover {
+            background: rgba(242, 236, 228, 0.08);
+            border-color: rgba(242, 236, 228, 0.5);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.8rem;
+                min-height: 44px;
+            }
+        }
+
+        /* ----- loader ----- */
+        .loader {
+            position: fixed;
+            inset: 0;
+            z-index: var(--z-loader);
+            background: var(--color-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .loader--done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .loader__inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .loader__ring {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid rgba(201, 168, 124, 0.1);
+            border-top-color: var(--color-gold);
+            animation: spin 1.2s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .loader__text {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--color-text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .loader__bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(242, 236, 228, 0.06);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .loader__bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--color-gold);
+            border-radius: 2px;
+            transition: width 0.2s ease;
+        }
+        .loader__percent {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: var(--color-text-muted);
+            letter-spacing: 0.05em;
+        }
+        @media (max-width: 768px) {
+            .loader__bar {
+                width: 150px;
+            }
+            .loader__ring {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        /* ----- scene engine ----- */
+        .scene-container {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            background: var(--color-bg);
+        }
+        .scene {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: var(--z-scene);
+            overflow: hidden;
+        }
+        .scene--active {
+            opacity: 1;
+            visibility: visible;
+            z-index: calc(var(--z-scene) + 1);
+        }
+        .scene__inner {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            max-height: 100%;
+            padding: 2rem;
+            z-index: var(--z-scene-content);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .scene__content {
+            width: 100%;
+            max-width: 720px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .scene__bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .scene__inner {
+                padding: 1.25rem;
+            }
+            .scene__content {
+                max-width: 100%;
+                gap: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .scene__inner {
+                padding: 1rem;
+            }
+        }
+
+        /* ----- OPENING ----- */
+        .scene--opening .scene__bg {
+            background: radial-gradient(ellipse at 50% 30%, #2a1f1a 0%, #0b090a 70%);
+        }
+        .scene--opening .scene__glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .scene--opening .scene__glow--1 {
+            width: 40vw;
+            height: 40vw;
+            top: -10%;
+            left: -10%;
+            background: rgba(201, 168, 124, 0.08);
+            animation: glowPulse 8s ease-in-out infinite alternate;
+        }
+        .scene--opening .scene__glow--2 {
+            width: 30vw;
+            height: 30vw;
+            bottom: -5%;
+            right: -5%;
+            background: rgba(212, 160, 160, 0.06);
+            animation: glowPulse 10s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes glowPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 1;
+            }
+        }
+        .scene--opening .scene__light {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 20%, rgba(242, 236, 228, 0.03) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .scene--opening .scene__particles {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .scene--opening .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(242, 236, 228, 0.3);
+            border-radius: 50%;
+            animation: floatParticle linear infinite;
+        }
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(40px) scale(1);
+                opacity: 0;
+            }
+        }
+        .scene--opening .scene__eyebrow {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+            animation: fadeUp 1.2s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .scene--opening .scene__title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 10vw, 6.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--color-text);
+            letter-spacing: -0.02em;
+            animation: fadeUp 1.4s ease 0.2s forwards;
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        .scene--opening .scene__subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 300;
+            color: var(--color-text-soft);
+            line-height: 1.7;
+            max-width: 520px;
+            animation: fadeUp 1.4s ease 0.4s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .scene--opening .scene__japanese {
+            font-family: var(--font-japanese);
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 300;
+            color: var(--color-text-muted);
+            letter-spacing: 0.1em;
+            animation: fadeUp 1.4s ease 0.6s forwards;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        .scene--opening .scene__cta {
+            animation: fadeUp 1.4s ease 0.8s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            margin-top: 0.5rem;
+        }
+        .scene--opening .scene__signature {
+            font-family: var(--font-heading);
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--color-text-muted);
+            letter-spacing: 0.08em;
+            margin-top: 0.5rem;
+            animation: fadeUp 1.4s ease 1s forwards;
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        /* ----- WELCOME ----- */
+        .scene--welcome .scene__bg {
+            background: radial-gradient(ellipse at 50% 40%, #1e1618 0%, #0b090a 80%);
+        }
+        .welcome__text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .welcome__line {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 7vw, 4.5rem);
+            font-weight: 400;
+            color: var(--color-text);
+            line-height: 1.15;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .welcome__line--1 {
+            animation: fadeUp 1s ease 0.3s forwards;
+        }
+        .welcome__line--2 {
+            animation: fadeUp 1s ease 0.7s forwards;
+        }
+        .welcome__line--3 {
+            animation: fadeUp 1s ease 1.1s forwards;
+        }
+        .welcome__continue {
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.6s forwards;
+        }
+
+        /* ----- LETTER ----- */
+        .scene--letter .scene__bg {
+            background: radial-gradient(ellipse at 50% 50%, #1a1416 0%, #0b090a 90%);
+        }
+        .letter__paper {
+            background: rgba(26, 20, 22, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(242, 236, 228, 0.06);
+            border-radius: 12px;
+            padding: 2.5rem 3rem;
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.2s ease 0.2s forwards;
+        }
+        .letter__header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(242, 236, 228, 0.06);
+        }
+        .letter__date {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--color-text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .letter__body {
+            font-family: var(--font-heading);
+            font-size: clamp(1rem, 1.4vw, 1.2rem);
+            font-weight: 400;
+            color: var(--color-text-soft);
+            line-height: 1.8;
+            min-height: 120px;
+            white-space: pre-wrap;
+        }
+        .letter__body .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background: var(--color-gold);
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.9s step-end infinite;
+        }
+        .letter__footer {
+            margin-top: 1.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(242, 236, 228, 0.06);
+            text-align: right;
+        }
+        .letter__signature {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--color-gold);
+        }
+        .letter__continue {
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            margin-top: 1rem;
+        }
+        .letter__continue--visible {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .letter__paper {
+                padding: 1.75rem 1.5rem;
+                margin: 0 0.5rem;
+            }
+            .letter__body {
+                font-size: 0.95rem;
+                line-height: 1.7;
+                min-height: 100px;
+            }
+        }
+
+        /* ----- GALLERY ----- */
+        .scene--gallery .scene__bg {
+            background: radial-gradient(ellipse at 50% 30%, #1a1416 0%, #0b090a 85%);
+        }
+        .gallery__title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            color: var(--color-text);
+            letter-spacing: 0.02em;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.2s forwards;
+        }
+        .gallery__subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
+            font-weight: 300;
+            color: var(--color-text-muted);
+            letter-spacing: 0.06em;
+            margin-top: -0.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.4s forwards;
+        }
+        .gallery__slider {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(242, 236, 228, 0.06);
+            opacity: 0;
+            animation: fadeUp 1s ease 0.6s forwards;
+        }
+        .gallery__track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform;
+        }
+        .gallery__slide {
+            flex: 0 0 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background: #1a1416;
+        }
+        .gallery__slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery__slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 1rem 1rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: var(--color-text);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-align: center;
+            letter-spacing: 0.04em;
+            pointer-events: none;
+        }
+        .gallery__slide--placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1416 0%, #2a1f1a 100%);
+            color: var(--color-text-muted);
+            gap: 0.5rem;
+        }
+        .gallery__slide--placeholder .gallery__slide-icon {
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+        .gallery__slide--placeholder .gallery__slide-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+        .gallery__nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(11, 9, 10, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(242, 236, 228, 0.1);
+            color: var(--color-text);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 5;
+            cursor: pointer;
+        }
+        .gallery__nav:hover {
+            background: rgba(11, 9, 10, 0.8);
+            border-color: rgba(242, 236, 228, 0.2);
+        }
+        .gallery__nav--prev {
+            left: 12px;
+        }
+        .gallery__nav--next {
+            right: 12px;
+        }
+        .gallery__nav:disabled {
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        .gallery__dots {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.8s forwards;
+        }
+        .gallery__dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(242, 236, 228, 0.15);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+        }
+        .gallery__dot--active {
+            background: var(--color-gold);
+            box-shadow: 0 0 12px rgba(201, 168, 124, 0.3);
+            transform: scale(1.2);
+        }
+        .gallery__dot:hover {
+            background: rgba(242, 236, 228, 0.4);
+        }
+        .gallery__continue {
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            margin-top: 0.5rem;
+        }
+        .gallery__continue--visible {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .gallery__slider {
+                max-width: 100%;
+                aspect-ratio: 4/3;
+            }
+            .gallery__nav {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2rem;
+            }
+            .gallery__nav--prev {
+                left: 6px;
+            }
+            .gallery__nav--next {
+                right: 6px;
+            }
+            .gallery__slide-caption {
+                font-size: 0.95rem;
+                padding: 1rem 0.75rem 0.75rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery__nav {
+                width: 28px;
+                height: 28px;
+                font-size: 1rem;
+            }
+            .gallery__dot {
+                width: 6px;
+                height: 6px;
+            }
+            .gallery__slide-caption {
+                font-size: 0.8rem;
+                padding: 0.75rem 0.5rem 0.5rem;
+            }
+        }
+
+        /* ----- JAPAN ----- */
+        .scene--japan .scene__bg {
+            background: linear-gradient(180deg, #f7c9a9 0%, #e8845a 35%, #d46a4a 55%, #8a4a3a 75%, #2a1a18 100%);
+        }
+        .japan__layers {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .japan__layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .japan__layer--sky {
+            background: linear-gradient(180deg, #f7c9a9 0%, #e8845a 40%, #d46a4a 65%, rgba(42, 26, 24, 0.6) 100%);
+        }
+        .japan__layer--sun {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffdd99 0%, #f7b87a 60%, #e8845a 100%);
+            top: 15%;
+            right: 25%;
+            box-shadow: 0 0 120px rgba(248, 184, 122, 0.3);
+            animation: sunGlow 4s ease-in-out infinite alternate;
+        }
+        @keyframes sunGlow {
+            0% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+        }
+        .japan__layer--fuji {
+            background: radial-gradient(ellipse at 50% 100%, #4a3a3a 0%, #2a1a18 60%, transparent 80%);
+            width: 70%;
+            height: 50%;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            clip-path: polygon(0% 100%, 15% 80%, 25% 60%, 35% 40%, 45% 20%, 50% 5%, 55% 20%, 65% 40%, 75% 60%, 85% 80%, 100% 100%);
+            opacity: 0.7;
+        }
+        .japan__layer--fuji::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(74, 58, 58, 0.3) 0%, rgba(42, 26, 24, 0.8) 100%);
+        }
+        .japan__layer--clouds {
+            pointer-events: none;
+        }
+        .japan__cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 9999px;
+            filter: blur(20px);
+            animation: cloudDrift linear infinite;
+        }
+        .japan__cloud--1 {
+            width: 300px;
+            height: 60px;
+            top: 8%;
+            left: -10%;
+            animation-duration: 40s;
+            animation-delay: 0s;
+        }
+        .japan__cloud--2 {
+            width: 400px;
+            height: 50px;
+            top: 18%;
+            left: -20%;
+            animation-duration: 55s;
+            animation-delay: 5s;
+            opacity: 0.6;
+        }
+        .japan__cloud--3 {
+            width: 200px;
+            height: 40px;
+            top: 5%;
+            left: -5%;
+            animation-duration: 35s;
+            animation-delay: 10s;
+            opacity: 0.4;
+        }
+        @keyframes cloudDrift {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(100vw + 200%));
+            }
+        }
+        .japan__layer--torii {
+            background: radial-gradient(ellipse at 50% 100%, rgba(180, 40, 40, 0.4) 0%, transparent 70%);
+            width: 60px;
+            height: 140px;
+            bottom: 20%;
+            left: 20%;
+            transform: translateX(-50%);
+            clip-path: polygon(0% 100%, 20% 100%, 25% 60%, 0% 55%, 0% 40%, 25% 45%, 30% 0%, 70% 0%, 75% 45%, 100% 40%, 100% 55%, 75% 60%, 80% 100%, 100% 100%, 100% 85%, 80% 85%, 75% 100%);
+            background: #8a2a2a;
+            opacity: 0.6;
+        }
+        .japan__layer--tulips {
+            background: radial-gradient(ellipse at 30% 100%, rgba(230, 150, 150, 0.3) 0%, rgba(255, 200, 200, 0.1) 30%, transparent 60%);
+            bottom: 0;
+            height: 30%;
+        }
+        .japan__layer--sakura {
+            pointer-events: none;
+        }
+        .sakura-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #ffb7c5 0%, #ff8a9b 100%);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.7;
+            animation: sakuraFall linear infinite;
+            will-change: transform;
+        }
+        @keyframes sakuraFall {
+            0% {
+                transform: translateY(-20px) rotate(0deg) scale(0.8);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+        .japan__layer--fireflies {
+            pointer-events: none;
+        }
+        .firefly {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #ffdd77;
+            box-shadow: 0 0 12px #ffdd77, 0 0 30px rgba(255, 220, 119, 0.3);
+            animation: fireflyFloat linear infinite, fireflyGlow 2s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+        @keyframes fireflyFloat {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(15px, -20px);
+            }
+            50% {
+                transform: translate(-10px, -35px);
+            }
+            75% {
+                transform: translate(20px, -15px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+        @keyframes fireflyGlow {
+            0% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.4);
+            }
+        }
+        .japan__layer--birds {
+            pointer-events: none;
+        }
+        .japan__bird {
+            position: absolute;
+            width: 20px;
+            height: 6px;
+            background: rgba(30, 20, 20, 0.6);
+            border-radius: 50%;
+            animation: birdFly linear infinite;
+        }
+        .japan__bird::before,
+        .japan__bird::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 4px;
+            background: rgba(30, 20, 20, 0.5);
+            border-radius: 50%;
+            top: -6px;
+        }
+        .japan__bird::before {
+            left: -4px;
+            transform: rotate(-20deg);
+        }
+        .japan__bird::after {
+            right: -4px;
+            transform: rotate(20deg);
+        }
+        .japan__bird--1 {
+            top: 12%;
+            left: -5%;
+            animation-duration: 25s;
+            animation-delay: 0s;
+        }
+        .japan__bird--2 {
+            top: 20%;
+            left: -10%;
+            animation-duration: 35s;
+            animation-delay: 8s;
+            transform: scale(0.7);
+        }
+        @keyframes birdFly {
+            0% {
+                transform: translateX(0) translateY(0) scale(1);
+            }
+            25% {
+                transform: translateX(25vw) translateY(-20px) scale(1.05);
+            }
+            50% {
+                transform: translateX(50vw) translateY(10px) scale(0.95);
+            }
+            75% {
+                transform: translateX(75vw) translateY(-15px) scale(1.02);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(0) scale(1);
+            }
+        }
+        .scene--japan .scene__content {
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .japan__title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 600;
+            color: var(--color-text);
+            letter-spacing: 0.04em;
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.3s forwards;
+        }
+        .japan__caption {
+            font-family: var(--font-body);
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            font-weight: 300;
+            color: var(--color-text-soft);
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.6s forwards;
+        }
+        .japan__continue {
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.9s forwards;
+        }
+
+        /* ----- ENDING ----- */
+        .scene--ending .scene__bg {
+            background: radial-gradient(ellipse at 50% 40%, #1a1416 0%, #0b090a 85%);
+        }
+        .ending__pre {
+            font-family: var(--font-body);
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            font-weight: 300;
+            color: var(--color-text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.2s forwards;
+        }
+        .ending__title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 600;
+            color: var(--color-text);
+            line-height: 1.1;
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.4s forwards;
+        }
+        .ending__body {
+            font-family: var(--font-body);
+            font-size: clamp(1rem, 1.3vw, 1.2rem);
+            font-weight: 300;
+            color: var(--color-text-soft);
+            line-height: 1.7;
+            max-width: 480px;
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.6s forwards;
+        }
+        .ending__closing {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--color-gold);
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.8s forwards;
+        }
+        .ending__continue {
+            opacity: 0;
+            animation: fadeUp 1.2s ease 1s forwards;
+        }
+
+        /* ----- CREDITS ----- */
+        .scene--credits .scene__bg {
+            background: radial-gradient(ellipse at 50% 50%, #1a1416 0%, #0b090a 90%);
+        }
+        .credits__heart {
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--color-rose);
+            animation: heartbeat 1.8s ease-in-out infinite, fadeUp 1.2s ease 0.2s forwards;
+            opacity: 0;
+        }
+        @keyframes heartbeat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            15% {
+                transform: scale(1.2);
+            }
+            30% {
+                transform: scale(1);
+            }
+            45% {
+                transform: scale(1.15);
+            }
+            60% {
+                transform: scale(1);
+            }
+        }
+        .credits__line {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 3.5rem);
+            font-weight: 400;
+            color: var(--color-text);
+            letter-spacing: 0.04em;
+            opacity: 0;
+        }
+        .credits__line--1 {
+            animation: fadeUp 1s ease 0.5s forwards;
+        }
+        .credits__line--2 {
+            animation: fadeUp 1s ease 0.8s forwards;
+        }
+        .credits__line--3 {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            font-weight: 300;
+            color: var(--color-text-muted);
+            font-style: italic;
+            animation: fadeUp 1s ease 1.1s forwards;
+        }
+        .credits__year {
+            font-family: var(--font-body);
+            font-size: clamp(0.8rem, 1vw, 1rem);
+            font-weight: 300;
+            color: var(--color-text-muted);
+            letter-spacing: 0.2em;
+            margin-top: 0.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.4s forwards;
+        }
+        .credits__replay {
+            margin-top: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.7s forwards;
+        }
+        @media (max-width: 768px) {
+            .credits__line {
+                font-size: 2rem;
+            }
+            .credits__line--3 {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== LOADER ===== -->
+    <div id="loader" class="loader">
+        <div class="loader__inner">
+            <div class="loader__ring"></div>
+            <div class="loader__text">Loading story …</div>
+            <div class="loader__bar"><div class="loader__bar-fill" id="loaderProgress"></div></div>
+            <div class="loader__percent" id="loaderPercent">0%</div>
+        </div>
+    </div>
+
+    <!-- ===== SCENE CONTAINER ===== -->
+    <main id="sceneContainer" class="scene-container">
+
+        <!-- SCENE 1: OPENING -->
+        <section id="sceneOpening" class="scene scene--opening" data-scene="opening">
+            <div class="scene__bg"></div>
+            <div class="scene__glow scene__glow--1"></div>
+            <div class="scene__glow scene__glow--2"></div>
+            <div class="scene__light"></div>
+            <div class="scene__particles" id="openingParticles"></div>
+            <div class="scene__inner">
+                <div class="scene__content">
+                    <p class="scene__eyebrow">A little story for you</p>
+                    <h1 class="scene__title">Happy Birthday,<br />Robiatuladawiyah Putri Zaini.</h1>
+                    <p class="scene__subtitle">Today is not just another day.<br />It's a little story made just for you.</p>
+                    <p class="scene__japanese">お誕生日おめでとう</p>
+                    <button class="scene__cta btn btn--primary" id="openStoryBtn">Open Story</button>
+                    <p class="scene__signature">From Nopal ♥ For Rubi</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 2: WELCOME -->
+        <section id="sceneWelcome" class="scene scene--welcome" data-scene="welcome" aria-hidden="true">
+            <div class="scene__bg"></div>
+            <div class="scene__inner">
+                <div class="scene__content">
+                    <div class="welcome__text">
+                        <p class="welcome__line welcome__line--1">Welcome, Rubi.</p>
+                        <p class="welcome__line welcome__line--2">Di hari yang indah ini,</p>
+                        <p class="welcome__line welcome__line--3">Ku persembahkan cerita kecil ini untukmu.</p>
+                    </div>
+                    <button class="welcome__continue btn btn--secondary" id="welcomeContinue">Continue →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 3: LETTER -->
+        <section id="sceneLetter" class="scene scene--letter" data-scene="letter" aria-hidden="true">
+            <div class="scene__bg"></div>
+            <div class="scene__inner">
+                <div class="scene__content">
+                    <div class="letter__paper">
+                        <div class="letter__header"><span class="letter__date">23 November 2026</span></div>
+                        <div class="letter__body" id="letterBody"></div>
+                        <div class="letter__footer"><span class="letter__signature">— Nopal</span></div>
+                    </div>
+                    <button class="letter__continue btn btn--secondary" id="letterContinue">Continue →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 4: GALLERY (images + captions) -->
+        <section id="sceneGallery" class="scene scene--gallery" data-scene="gallery" aria-hidden="true">
+            <div class="scene__bg"></div>
+            <div class="scene__inner">
+                <div class="scene__content">
+                    <h2 class="gallery__title">Memories</h2>
+                    <p class="gallery__subtitle">beberapa momen yang ter abadikan</p>
+                    <div class="gallery__slider">
+                        <div class="gallery__track" id="galleryTrack"></div>
+                        <button class="gallery__nav gallery__nav--prev" id="galleryPrev">‹</button>
+                        <button class="gallery__nav gallery__nav--next" id="galleryNext">›</button>
+                    </div>
+                    <div class="gallery__dots" id="galleryDots"></div>
+                    <button class="gallery__continue btn btn--secondary" id="galleryContinue">Continue →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 5: JAPAN -->
+        <section id="sceneJapan" class="scene scene--japan" data-scene="japan" aria-hidden="true">
+            <div class="scene__bg"></div>
+            <div class="japan__layers">
+                <div class="japan__layer japan__layer--sky"></div>
+                <div class="japan__layer japan__layer--sun"></div>
+                <div class="japan__layer japan__layer--fuji"></div>
+                <div class="japan__layer japan__layer--clouds">
+                    <div class="japan__cloud japan__cloud--1"></div>
+                    <div class="japan__cloud japan__cloud--2"></div>
+                    <div class="japan__cloud japan__cloud--3"></div>
+                </div>
+                <div class="japan__layer japan__layer--torii"></div>
+                <div class="japan__layer japan__layer--tulips"></div>
+                <div class="japan__layer japan__layer--sakura" id="sakuraContainer"></div>
+                <div class="japan__layer japan__layer--fireflies" id="fireflyContainer"></div>
+                <div class="japan__layer japan__layer--birds">
+                    <div class="japan__bird japan__bird--1"></div>
+                    <div class="japan__bird japan__bird--2"></div>
+                </div>
+            </div>
+            <div class="scene__inner">
+                <div class="scene__content">
+                    <h2 class="japan__title">Japan </h2>
+                    <p class="japan__caption">A place I'd love to take you someday, KITAA NGEDATEE AHAHAHA.</p>
+                    <button class="japan__continue btn btn--secondary" id="japanContinue">Continue →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 6: ENDING -->
+        <section id="sceneEnding" class="scene scene--ending" data-scene="ending" aria-hidden="true">
+            <div class="scene__bg"></div>
+            <div class="scene__inner">
+                <div class="scene__content">
+                    <p class="ending__pre">And so,</p>
+                    <h2 class="ending__title">This story is yours.</h2>
+                    <p class="ending__body">Every word, every memory, every dream —<br />they all belong to you.</p>
+                    <p class="ending__closing">Happy Birthday, Rubii.</p>
+                    <button class="ending__continue btn btn--primary" id="endingContinue">See Credits →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 7: CREDITS -->
+        <section id="sceneCredits" class="scene scene--credits" data-scene="credits" aria-hidden="true">
+            <div class="scene__bg"></div>
+            <div class="scene__inner">
+                <div class="scene__content">
+                    <div class="credits__heart">♥</div>
+                    <p class="credits__line credits__line--1">From Nopal</p>
+                    <p class="credits__line credits__line--2">For Rubi</p>
+                    <p class="credits__line credits__line--3">— with all my heart —</p>
+                    <p class="credits__year">23 November 2026 </p>
+                    <button class="credits__replay btn btn--secondary" id="creditsReplay">♻ Replay Story</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // CONFIG
+        // ============================================================
+        const CONFIG = {
+            galleryAutoplay: true,
+            galleryInterval: 4000,
+            particleCount: { opening: 30, sakura: 25, fireflies: 12 },
+            loader: { minDisplay: 300 },
+        };
+
+        const SCENES = {
+            OPENING: 'opening',
+            WELCOME: 'welcome',
+            LETTER: 'letter',
+            GALLERY: 'gallery',
+            JAPAN: 'japan',
+            ENDING: 'ending',
+            CREDITS: 'credits',
+        };
+        const SCENE_ORDER = [SCENES.OPENING, SCENES.WELCOME, SCENES.LETTER, SCENES.GALLERY, SCENES.JAPAN, SCENES.ENDING,
+            SCENES.CREDITS
+        ];
+        const EVENTS = { LOADER_READY: 'loader:ready', SCENE_ENTER: 'scene:enter' };
+
+        // ============================================================
+        // ASSETS — 🔽 PUT YOUR PHOTO URLs AND CAPTIONS HERE!
+        // ============================================================
+        const ASSETS = {
+            images: {
+                gallery: [
+                    { url: 'https://i.postimg.cc/HnKrL93C/Whats-App-Image-2026-09-09-at-11-18-00-PM.jpg', label: 'pap pertamaa yang kudapatt dari rubii' },
+                    { url: 'https://i.postimg.cc/nV639Y6j/Whats-App-Image-2026-09-08-at-10-13-16-PM.jpg', label: 'momen kita vc pertama kali dan aku sangat suka momen ini' },
+                    { url: 'https://i.postimg.cc/nzHhkPMN/Whats-App-Image-2026-09-09-at-10-36-09-PM.jpg', label: 'hehe foto pertama yang kuambil pas kita keluar' },
+                    { url: 'https://i.postimg.cc/1XN9vhc3/Whats-App-Image-2026-09-09-at-11-17-08-PM.jpg', label: 'She is so pretty rightt??? masyaallah' },
+                    { url: 'https://i.postimg.cc/NMQctvxQ/Whats-App-Image-2026-09-09-at-8-03-25-PM.jpg', label: 'dan masih banyak foto cantikk lainnyaa✨' },
+                ]
+            },
+            audio: { music: {}, sfx: {} },
+        };
+
+        // ============================================================
+        // UTILITY
+        // ============================================================
+        const Utils = {
+            clamp: (v, min, max) => Math.min(Math.max(v, min), max),
+            random: (min, max) => Math.random() * (max - min) + min,
+            $: (s, c = document) => c.querySelector(s),
+            $$: (s, c = document) => [...c.querySelectorAll(s)],
+            debounce: (fn, d) => { let t; return (...a) => { clearTimeout(t);
+                    t = setTimeout(() => fn(...a), d); }; },
+        };
+
+        // ============================================================
+        // EVENT BUS
+        // ============================================================
+        class EventBus {
+            constructor() { this.events = {}; }
+            on(e, cb) { if (!this.events[e]) this.events[e] = [];
+                this.events[e].push(cb); return () => this.off(e, cb); }
+            off(e, cb) { if (!this.events[e]) return;
+                this.events[e] = this.events[e].filter(f => f !== cb); }
+            emit(e, d) { if (!this.events[e]) return;
+                this.events[e].forEach(cb => { try { cb(d); } catch (err) {} }); }
+            once(e, cb) { const w = (d) => { this.off(e, w);
+                    cb(d); };
+                this.on(e, w); }
+        }
+        const eventBus = new EventBus();
+
+        // ============================================================
+        // LOADER
+        // ============================================================
+        class Loader {
+            constructor() {
+                this.total = ASSETS.images.gallery ? ASSETS.images.gallery.length : 0;
+                this.done = false;
+            }
+            start() {
+                if (this.total === 0) { this._finish(); return; }
+                const start = Date.now();
+                const minDisplay = CONFIG.loader.minDisplay || 300;
+                this._updateUI(100);
+                const elapsed = Date.now() - start;
+                setTimeout(() => this._finish(), Math.max(0, minDisplay - elapsed));
+            }
+            _updateUI(p) {
+                const fill = document.getElementById('loaderProgress');
+                const percent = document.getElementById('loaderPercent');
+                if (fill) fill.style.width = p + '%';
+                if (percent) percent.textContent = Math.round(p) + '%';
+            }
+            _finish() {
+                if (this.done) return;
+                this.done = true;
+                this._updateUI(100);
+                document.getElementById('loader').classList.add('loader--done');
+                eventBus.emit(EVENTS.LOADER_READY);
+            }
+        }
+
+        // ============================================================
+        // TYPING EFFECT
+        // ============================================================
+        class TypingEffect {
+            constructor(o = {}) {
+                this.el = o.element;
+                this.text = o.text || '';
+                this.speed = o.speed || 40;
+                this.delay = o.delay || 300;
+                this.onComplete = o.onComplete || null;
+                this.cursor = o.cursor !== undefined ? o.cursor : true;
+                this.running = false;
+                this.idx = 0;
+                this.timer = null;
+            }
+            start() {
+                if (this.running) return;
+                this.running = true;
+                this.idx = 0;
+                this.el.textContent = '';
+                if (this.cursor) this._addCursor();
+                setTimeout(() => this._type(), this.delay);
+            }
+            _type() {
+                if (!this.running || this.idx >= this.text.length) { this._finish(); return; }
+                this._removeCursor();
+                this.el.textContent += this.text[this.idx++];
+                if (this.cursor) this._addCursor();
+                this.timer = setTimeout(() => this._type(), Math.max(10, this.speed + (Math.random() * 20 - 10)));
+            }
+            _finish() {
+                this._removeCursor();
+                this.running = false;
+                if (this.cursor) this._addCursor();
+                if (this.onComplete) this.onComplete();
+            }
+            _addCursor() {
+                const c = document.createElement('span');
+                c.className = 'typing-cursor';
+                c.dataset.typingCursor = 'true';
+                this.el.appendChild(c);
+            }
+            _removeCursor() {
+                const c = this.el.querySelector('[data-typing-cursor="true"]');
+                if (c) c.remove();
+            }
+            destroy() { if (this.timer) clearTimeout(this.timer);
+                this.running = false; }
+        }
+
+        // ============================================================
+        // GALLERY — with image + caption overlay
+        // ============================================================
+        class Gallery {
+            constructor(o = {}) {
+                this.track = o.container || document.getElementById('galleryTrack');
+                this.dotsEl = o.dotsContainer || document.getElementById('galleryDots');
+                this.prevBtn = o.prevBtn || document.getElementById('galleryPrev');
+                this.nextBtn = o.nextBtn || document.getElementById('galleryNext');
+                this.continueBtn = o.continueBtn || document.getElementById('galleryContinue');
+                this.slides = o.slides || [];
+                this.idx = 0;
+                this.total = 0;
+                this.transitioning = false;
+                this.autoplay = o.autoplay || true;
+                this.interval = o.autoplayInterval || 4000;
+                this.timer = null;
+                this._init();
+            }
+            _init() {
+                this.track.innerHTML = '';
+                const data = this.slides.length ? this.slides : ASSETS.images.gallery;
+
+                data.forEach(item => {
+                    const slide = document.createElement('div');
+                    slide.className = 'gallery__slide';
+
+                    if (item.url) {
+                        // Image
+                        const img = document.createElement('img');
+                        img.src = item.url;
+                        img.alt = item.label || 'Memory';
+                        img.loading = 'lazy';
+                        slide.appendChild(img);
+                        // Caption overlay
+                        const caption = document.createElement('div');
+                        caption.className = 'gallery__slide-caption';
+                        caption.textContent = item.label || '💭 Memory';
+                        slide.appendChild(caption);
+                    } else {
+                        // Fallback
+                        slide.classList.add('gallery__slide--placeholder');
+                        slide.innerHTML =
+                            `<span class="gallery__slide-icon">${item.icon||'✨'}</span><span class="gallery__slide-label">${item.label||'Memory'}</span>`;
+                    }
+
+                    this.track.appendChild(slide);
+                });
+
+                this.total = this.track.children.length;
+                this._buildDots();
+                this._bindEvents();
+                this.goTo(0);
+                if (this.autoplay) this.startAutoplay();
+                if (this.continueBtn) this.continueBtn.classList.remove('gallery__continue--visible');
+            }
+            _buildDots() {
+                this.dotsEl.innerHTML = '';
+                for (let i = 0; i < this.total; i++) {
+                    const d = document.createElement('button');
+                    d.className = 'gallery__dot';
+                    d.dataset.index = i;
+                    this.dotsEl.appendChild(d);
+                }
+            }
+            _bindEvents() {
+                this.prevBtn.addEventListener('click', () => this.prev());
+                this.nextBtn.addEventListener('click', () => this.next());
+                this.dotsEl.addEventListener('click', (e) => {
+                    const d = e.target.closest('.gallery__dot');
+                    if (d) this.goTo(parseInt(d.dataset.index));
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prev();
+                    if (e.key === 'ArrowRight') this.next();
+                });
+                let startX = 0;
+                const slider = this.track.closest('.gallery__slider');
+                if (slider) {
+                    slider.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].screenX; }, { passive: true });
+                    slider.addEventListener('touchend', (e) => {
+                        const diff = startX - e.changedTouches[0].screenX;
+                        if (Math.abs(diff) > 50) diff > 0 ? this.next() : this.prev();
+                    }, { passive: true });
+                }
+            }
+            goTo(i) {
+                if (this.transitioning) return;
+                i = Utils.clamp(i, 0, this.total - 1);
+                if (i === this.idx) return;
+                this.transitioning = true;
+                this.idx = i;
+                this.track.style.transform = `translateX(${-i*100}%)`;
+                const dots = this.dotsEl.querySelectorAll('.gallery__dot');
+                dots.forEach((d, idx) => d.classList.toggle('gallery__dot--active', idx === i));
+                this.prevBtn.disabled = i === 0;
+                this.nextBtn.disabled = i === this.total - 1;
+                if (i === this.total - 1) this.continueBtn?.classList.add('gallery__continue--visible');
+                else this.continueBtn?.classList.remove('gallery__continue--visible');
+                setTimeout(() => { this.transitioning = false; }, 600);
+            }
+            next() { if (!this.transitioning) this.goTo((this.idx + 1) % this.total); }
+            prev() { if (!this.transitioning) this.goTo((this.idx - 1 + this.total) % this.total); }
+            startAutoplay() {
+                this.stopAutoplay();
+                if (this.total <= 1) return;
+                this.timer = setInterval(() => { if (!this.transitioning) this.next(); }, this.interval);
+            }
+            stopAutoplay() { if (this.timer) { clearInterval(this.timer);
+                    this.timer = null; } }
+        }
+
+        // ============================================================
+        // PARTICLES
+        // ============================================================
+        class ParticleSystem {
+            constructor(o = {}) {
+                this.container = o.container;
+                this.count = o.count || 20;
+                this.type = o.type || 'float';
+                this.parts = [];
+                this.running = false;
+                this.id = null;
+                this._init();
+            }
+            _init() {
+                this.clear();
+                this.running = true;
+                const rect = this.container.getBoundingClientRect();
+                const w = rect.width || window.innerWidth;
+                const h = rect.height || window.innerHeight;
+                for (let i = 0; i < this.count; i++) {
+                    const el = document.createElement('div');
+                    el.className = this.type === 'sakura' ? 'sakura-particle' : this.type === 'firefly' ? 'firefly' :
+                    'particle';
+                    const x = Utils.random(0, w),
+                        y = Utils.random(0, h);
+                    el.style.left = x + 'px';
+                    el.style.top = y + 'px';
+                    if (this.type === 'sakura') {
+                        el.style.width = Utils.random(6, 14) + 'px';
+                        el.style.height = Utils.random(6, 14) + 'px';
+                        el.style.background = 'radial-gradient(circle, #ffb7c5 0%, #ff8a9b 100%)';
+                        el.style.borderRadius = '50% 0 50% 50%';
+                    } else if (this.type === 'firefly') {
+                        el.style.width = '4px';
+                        el.style.height = '4px';
+                        el.style.background = '#ffdd77';
+                        el.style.borderRadius = '50%';
+                        el.style.boxShadow = '0 0 12px #ffdd77, 0 0 30px rgba(255,220,119,0.3)';
+                        el.style.animation =
+                            `fireflyFloat ${Utils.random(4,8)}s ease-in-out infinite, fireflyGlow ${Utils.random(1.5,3)}s ease-in-out infinite alternate`;
+                    } else {
+                        el.style.background = `rgba(242,236,228,${Utils.random(0.1,0.3)})`;
+                        el.style.borderRadius = '50%';
+                        el.style.animation = `floatParticle ${Utils.random(10,25)}s linear infinite`;
+                        el.style.animationDelay = Utils.random(0, 10) + 's';
+                    }
+                    this.container.appendChild(el);
+                    this.parts.push({ el, x, y, speed: Utils.random(0.3, 1.2), phase: Utils.random(0, Math.PI * 2) });
+                }
+                if (this.type === 'sakura') this._animate();
+            }
+            _animate() {
+                if (!this.running) return;
+                const rect = this.container.getBoundingClientRect();
+                const w = rect.width || window.innerWidth;
+                const h = rect.height || window.innerHeight;
+                this.parts.forEach(p => {
+                    if (this.type === 'sakura') {
+                        p.y += p.speed * 1.5;
+                        p.x += Math.sin(p.y * 0.01 + p.phase) * 0.5;
+                        p.el.style.transform =
+                            `translate(${p.x - p.el.offsetLeft}px, ${p.y - p.el.offsetTop}px) rotate(${p.y * 0.1}deg)`;
+                        if (p.y > h + 20) { p.y = -20;
+                            p.x = Utils.random(0, w);
+                            p.el.style.left = p.x + 'px';
+                            p.el.style.top = p.y + 'px'; }
+                    }
+                });
+                this.id = requestAnimationFrame(() => this._animate());
+            }
+            clear() {
+                this.running = false;
+                if (this.id) { cancelAnimationFrame(this.id);
+                    this.id = null; }
+                this.parts.forEach(p => { if (p.el && p.el.parentNode) p.el.parentNode.removeChild(p.el); });
+                this.parts = [];
+            }
+        }
+
+        // ============================================================
+        // SCENE MANAGER
+        // ============================================================
+        class SceneManager {
+            constructor() {
+                this.scenes = {};
+                this.current = null;
+                this.idx = 0;
+                this.transitioning = false;
+                SCENE_ORDER.forEach(id => {
+                    const el = document.getElementById(`scene${id.charAt(0).toUpperCase() + id.slice(1)}`);
+                    if (el) this.scenes[id] = el;
+                });
+                eventBus.on(EVENTS.LOADER_READY, () => this.goTo(SCENES.OPENING));
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault();
+                        this.next(); }
+                    if (e.key === 'ArrowLeft') { e.preventDefault();
+                        this.prev(); }
+                });
+            }
+            goTo(id) {
+                if (this.transitioning || !this.scenes[id]) return;
+                this.transitioning = true;
+                this.current = id;
+                this.idx = SCENE_ORDER.indexOf(id);
+                Object.entries(this.scenes).forEach(([k, el]) => {
+                    el.classList.remove('scene--active', 'scene--previous', 'scene--next');
+                    el.setAttribute('aria-hidden', 'true');
+                });
+                const el = this.scenes[id];
+                el.classList.add('scene--active');
+                el.setAttribute('aria-hidden', 'false');
+                eventBus.emit(EVENTS.SCENE_ENTER, { scene: id });
+                setTimeout(() => { this.transitioning = false; }, 800);
+            }
+            next() { if (!this.transitioning) this.goTo(SCENE_ORDER[(this.idx + 1) % SCENE_ORDER.length]); }
+            prev() { if (!this.transitioning) this.goTo(SCENE_ORDER[(this.idx - 1 + SCENE_ORDER.length) % SCENE_ORDER
+                    .length]); }
+        }
+        const sceneManager = new SceneManager();
+
+        // ============================================================
+        // AUDIO (placeholder)
+        // ============================================================
+        const audioManager = {
+            init() { try { new(window.AudioContext || window.webkitAudioContext)(); } catch (e) {} },
+            playMusic() {},
+            playSFX() {},
+        };
+
+        // ============================================================
+        // APP
+        // ============================================================
+        class App {
+            constructor() {
+                this.gallery = null;
+                this.particles = [];
+                this.typing = [];
+                this._init();
+            }
+            _init() {
+                audioManager.init();
+                eventBus.on(EVENTS.SCENE_ENTER, (d) => this._onSceneEnter(d.scene));
+
+                Utils.$('#openStoryBtn').addEventListener('click', () => { audioManager.playMusic();
+                    sceneManager.next(); });
+                ['welcomeContinue', 'letterContinue', 'galleryContinue', 'japanContinue', 'endingContinue'].forEach(id => {
+                    const btn = document.getElementById(id);
+                    if (btn) btn.addEventListener('click', () => sceneManager.next());
+                });
+                Utils.$('#creditsReplay').addEventListener('click', () => {
+                    sceneManager.goTo(SCENES.OPENING);
+                    this._cleanupParticles();
+                    if (this.gallery) this.gallery.goTo(0);
+                    this._resetLetter();
+                });
+
+                this._initGallery();
+                this._initOpeningParticles();
+                this._initLetter();
+                this._initJapanParticles();
+                window.addEventListener('resize', Utils.debounce(() => this._onResize(), 200));
+            }
+            _onSceneEnter(id) {
+                if (id === SCENES.OPENING) this._initOpeningParticles();
+                if (id === SCENES.WELCOME) this._playWelcome();
+                if (id === SCENES.LETTER) this._playLetter();
+                if (id === SCENES.GALLERY) { this.gallery?.goTo(0);
+                    setTimeout(() => this.gallery?.startAutoplay(), 500); }
+                if (id === SCENES.JAPAN) this._initJapanParticles();
+                if (id === SCENES.ENDING || id === SCENES.CREDITS) this._cleanupParticles();
+            }
+            _initGallery() {
+                this.gallery = new Gallery({ autoplay: true, autoplayInterval: 4000 });
+            }
+            _initOpeningParticles() {
+                const c = document.getElementById('openingParticles');
+                if (!c) return;
+                c.querySelectorAll('.particle').forEach(el => el.remove());
+                for (let i = 0; i < (CONFIG.particleCount.opening || 25); i++) {
+                    const el = document.createElement('div');
+                    el.className = 'particle';
+                    el.style.width = Utils.random(2, 5) + 'px';
+                    el.style.height = el.style.width;
+                    el.style.left = Utils.random(0, 100) + '%';
+                    el.style.animationDuration = Utils.random(12, 30) + 's';
+                    el.style.animationDelay = Utils.random(0, 15) + 's';
+                    el.style.opacity = Utils.random(0.1, 0.4);
+                    c.appendChild(el);
+                }
+            }
+            _initJapanParticles() {
+                const s = document.getElementById('sakuraContainer');
+                if (s) { s.innerHTML = '';
+                    this.particles.push(new ParticleSystem({ container: s, count: CONFIG.particleCount.sakura || 20,
+                        type: 'sakura' })); }
+                const f = document.getElementById('fireflyContainer');
+                if (f) { f.innerHTML = '';
+                    this.particles.push(new ParticleSystem({ container: f, count: CONFIG.particleCount.fireflies || 10,
+                        type: 'firefly' })); }
+            }
+            _cleanupParticles() {
+                this.particles.forEach(p => p.clear());
+                this.particles = [];
+                ['sakuraContainer', 'fireflyContainer'].forEach(id => { const e = document.getElementById(id); if (e) e
+                        .innerHTML = ''; });
+            }
+            _initLetter() {
+                const el = document.getElementById('letterBody');
+                if (!el) return;
+                el.dataset.fullText =
+                    `Dearest Rubi,\n\nOn this special day, I wanted to give you something more than just words. This little story, this journey — it's all for you.\n\nYou are the warmth in my coldest days, the light in my darkest nights, and the melody in my quietest moments.\n\nEvery memory we've made is a treasure I hold close to my heart. And every dream we share is a promise of tomorrow.\n\nThank you for being you. Thank you for existing.\n\nWith all my love,\nNopal`;
+            }
+            _playLetter() {
+                const el = document.getElementById('letterBody');
+                if (!el) return;
+                const text = el.dataset.fullText || '';
+                el.textContent = '';
+                const t = new TypingEffect({
+                    element: el,
+                    text: text,
+                    speed: 25,
+                    delay: 300,
+                    cursor: true,
+                    onComplete: () => { document.getElementById('letterContinue')?.classList.add(
+                            'letter__continue--visible'); },
+                });
+                this.typing.push(t);
+                t.start();
+            }
+            _playWelcome() {
+                setTimeout(() => { document.getElementById('welcomeContinue').style.opacity = '1'; }, 1500);
+            }
+            _resetLetter() {
+                const el = document.getElementById('letterBody');
+                if (el) el.textContent = '';
+                document.getElementById('letterContinue')?.classList.remove('letter__continue--visible');
+                this.typing.forEach(t => t.destroy());
+                this.typing = [];
+            }
+            _onResize() { this.particles.forEach(p => { if (p.resize) p.resize(); }); }
+        }
+
+        // ============================================================
+        // BOOTSTRAP
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = new Loader();
+            loader.start();
+            eventBus.once(EVENTS.LOADER_READY, () => { new App(); });
+        });
+    </script>
+</body>
+</html>
